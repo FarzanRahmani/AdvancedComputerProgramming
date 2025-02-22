@@ -1,0 +1,9 @@
+dotnet new blazorserver -o BlazorApp --no-https                -o == --output
+cd BlazorApp
+dotnet watch run --> will build and start the app
+http://localhost:5000
+dotnet new razorcomponent -n Todo -o Pages              -n|--name
+
+***Razor component file names require a capitalized first letter. Open the Pages folder and confirm that the Todo component
+ file name starts with a capital letter T. The file name should be Todo.razor.***
+

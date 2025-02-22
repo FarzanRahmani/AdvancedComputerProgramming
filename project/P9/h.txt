@@ -1,0 +1,19 @@
+dotnet new webapi -o Shop.API
+fahgat api khales dige ui nadare
+dotnet new classlib -o Shop.Data
+dotnet new sln
+# baraye har layer ye project joda mizanim
+dotnet sln add Shop.API Shop.Data
+dotnet new classlib -o Shop.Core
+cd Shop.Api
+dotnet add reference ..\Shop.Core\Shop.Core.csproj
+cd ..\Shop.Data
+dotnet add reference ..\Shop.Core\Shop.Core.csproj
+cd ..\Shop.Core
+mkdir Models(ocjects)
+mkdir Interfaces
+dotnet sln add Shop.Core
+cd ..\Shop.Data
+mkdir Repositories
+Clothe(business model)Repository.cs
+

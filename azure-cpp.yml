@@ -1,0 +1,12 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: mkdir testout && for i in `find . -name '*_test.cpp'`; do g++ -std=c++17 $i -o testout/$(basename $i .cpp); done
+  displayName: 'build'
+
+- script: for i in testout/*_test; do $i -d yes; done
+  displayName: 'test'

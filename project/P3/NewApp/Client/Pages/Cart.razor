@@ -1,0 +1,269 @@
+﻿@page "/cart"
+@using Mydatas;
+@using Pages;
+@* @using NewApp.Shared *@
+@* @inject HttpClient Http *@
+
+
+<h1>Your Cart</h1>
+
+@* cart  *@
+@* @* <div class="container"> *@
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (@Fcart.MJ > 0)
+                    {
+                    <tr>
+                    <th scope="row">1</th>
+                    <td class="w-25">
+                        <img src=@MenJeans.photo class="img-fluid img-thumbnail" alt="MenJeans">
+                    </td>
+                    <td>@MenJeans.name</td>
+                    <td>@MenJeans.price</td>
+                    <td>@Fcart.MJ</td>
+                    </tr>
+                    }
+
+                    @if (@Fcart.WJ > 0)
+                    {
+                    <tr>
+                    <th scope="row">2</th>
+                    <td class="w-25">
+                        <img src=@WomenJeans.photo class="img-fluid img-thumbnail" alt="WomenJeans">
+                    </td>
+                    <td>@WomenJeans.name</td>
+                    <td>@WomenJeans.price</td>
+                    <td>@Fcart.WJ</td>
+                    </tr>
+                    }
+
+                    @if (@Fcart.MJA > 0)
+                    {
+                    <tr>
+                    <th scope="row">3</th>
+                    <td class="w-25">
+                        <img src=@MenJacket.photo class="img-fluid img-thumbnail" alt="MenJacket">
+                    </td>
+                    <td>@MenJacket.name</td>
+                    <td>@MenJacket.price</td>
+                    <td>@Fcart.MJA</td>
+                    </tr>
+                    }
+
+                    @if (@Fcart.WJA > 0)
+                    {
+                    <tr>
+                    <th scope="row">4</th>
+                    <td class="w-25">
+                        <img src=@WomenJacket.photo class="img-fluid img-thumbnail" alt="WomenJacket">
+                    </td>
+                    <td>@WomenJacket.name</td>
+                    <td>@WomenJacket.price</td>
+                    <td>@Fcart.WJA</td>
+                    </tr>
+                    }
+
+                    @if (@Fcart.MT > 0)
+                    {
+                    <tr>
+                    <th scope="row">5</th>
+                    <td class="w-25">
+                        <img src=@MenTshirt.photo class="img-fluid img-thumbnail" alt="MenTshirt">
+                    </td>
+                    <td>@MenTshirt.name</td>
+                    <td>@MenTshirt.price</td>
+                    <td>@Fcart.MT</td>
+                    </tr>
+                    }
+
+                    @if (@Fcart.WT > 0)
+                    {
+                    <tr>
+                    <th scope="row">6</th>
+                    <td class="w-25">
+                        <img src=@WomenTshirt.photo class="img-fluid img-thumbnail" alt="WomenTshirt">
+                    </td>
+                    <td>@WomenTshirt.name</td>
+                    <td>@WomenTshirt.price</td>
+                    <td>@Fcart.WT</td>
+                    </tr>
+                    }
+
+                    @if (@Fcart.MS>0)
+                    {
+                    <tr>
+                    <th scope="row">7</th>
+                    <td class="w-25">
+                        <img src=@Menshoes.photo class="img-fluid img-thumbnail" alt="Menshoes">
+                    </td>
+                    <td>@Menshoes.name</td>
+                    <td>@Menshoes.price</td>
+                    <td>@Fcart.MS</td>
+                    </tr>
+                    }
+
+                    @if (@Fcart.WS > 0)
+                    {
+                    <tr>
+                    <th scope="row">8</th>
+                    <td class="w-25">
+                        <img src=@Womenshoes.photo class="img-fluid img-thumbnail" alt="Womenshoes">
+                    </td>
+                    <td>@Womenshoes.name</td>
+                    <td>@Womenshoes.price</td>
+                    <td>@Fcart.WS</td>
+                    </tr>
+                    }
+
+                </tbody>
+                </table>   
+            </div>
+        </div>
+
+<h3>
+    Total price is : @Fcart.sum_value
+</h3>
+
+
+
+<h1>Please add your Information to finalize the shop</h1>
+
+@* <br>
+<h2>@final</h2> 
+<br> *@
+
+@* <style>
+    body {
+        background-image: url('bg4.jpg');
+        background-color: ghostwhite;
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background;
+    } 
+</style> *@
+@* alert("Hello! I am an alert box!!") *@
+<EditForm Model="@u" OnValidSubmit="sabt">  
+    <DataAnnotationsValidator />  
+    <ValidationSummary />  
+    <div class="row content">  
+        <div class="col-md-2"><label for="FirstName">FisrtName</label></div>  
+        <div class="col-md-3"><InputText id="firstname" @bind-Value="u.FirstName" /></div>  
+    </div>  
+
+    <div class="row content">  
+        <div class="col-md-2"><label for="LastName">LastName</label></div>  
+        <div class="col-md-3"><InputText id="lastname" @bind-Value="u.LastName" /></div>  
+    </div>  
+
+    <div class="row content">  
+        <div class="col-md-2"><label for="EmailAddress">Email</label></div>  
+        <div class="col-md-3"><InputText id="EmailAddress" @bind-Value="u.EmailAddress" /></div>  
+    </div>  
+
+    <div class="row content">  
+        <div class="col-md-2"><label for="PhoneNumber">PhoneNumber</label></div>  
+        <div class="col-md-3"><InputText id="PhoneNumber" @bind-Value="u.PhoneNumber" /></div>  
+    </div>  
+
+    <div class="row content">  
+        <div class="col-md-2"><label for="CreditCardNumber">Credit Card Number</label></div>  
+        <div class="col-md-3"><InputText id="CreditCardNumber" @bind-Value="u.CreditCardNumber" /></div>  
+    </div>  
+
+    <div class="row content">  
+        <div class="col-md-2"><label for="Address">Address</label></div>  
+        <div class="col-md-3"><InputText id="Address" @bind-Value="u.Address" /></div>  
+    </div>  
+
+    <div class="row content">  
+        <button type="submit" class="btn btn-info" >Submit</button>  
+    </div>  
+
+</EditForm>  
+<br>
+
+@if (@sign)
+{
+<div class="alert alert-success" role="alert">
+    Your Information has been registered thanks a zillion for shopping from us.
+</div>
+}
+
+@* submit --> to ye safhe taeed nahaii bede *@
+
+<a href="products" class="btn btn-warning btn-lg active btn-block" role="button" aria-pressed="true" >Back to the first page</a>
+
+@code {
+    User u = new User();     
+    @* string final; *@
+    bool sign = false;
+    void sabt() 
+    {
+        sign=true;
+        @* final="Your Information has been registered thanks a zillion for shopping from us."; *@
+    }
+
+    static product MenJeans = new product()
+    {   name = "MenJeans",
+        price = 400,
+        photo = "men-jeans.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+
+    static product WomenJeans = new product()
+    {   name = "WomenJeans",
+        price = 320,
+        photo = "women-jeans.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+
+    static product MenTshirt = new product()
+    {   name = "MenTshirt",
+        price = 200,
+        photo = "men-Tshirt.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+
+    static product WomenTshirt = new product()
+    {   name = "WomenTshirt",
+        price = 150,
+        photo = "women-Tshirt.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    static product Menshoes = new product()
+    {   name = "Menshoes",
+        price = 450,
+        photo = "men-shoes.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    static product Womenshoes = new product()
+    {   name = "Womenshoes",
+        price = 380,
+        photo = "women-shoes.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    static product MenJacket = new product()
+    {   name = "MenJacket",
+        price = 2000,
+        photo = "men-jacket.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    
+    static product WomenJacket = new product()
+    {   name = "WomenJacket",
+        price = 1600,
+        photo = "women-jacket.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+}

@@ -1,0 +1,38 @@
+// using System;
+// class ActiveState : IFreezable
+// {
+//     private Action OnUnFreeze;    
+//     public ActiveState(Action onUnfreeze)
+//     {
+//         this.OnUnFreeze = onUnfreeze;
+//     }
+//     public IFreezable Deposit() => this; // this: active
+
+//     public IFreezable Freeze() => new FrozenState(this.OnUnFreeze); // freeze
+
+//     public IFreezable Withdraw() => this; // this: active
+// }
+
+// class FrozenState : IFreezable
+// {
+//     private Action OnUnFreeze;    
+//     public FrozenState(Action onUnfreeze)
+//     {
+//         this.OnUnFreeze = onUnfreeze;
+//     }
+
+//     public IFreezable Deposit()
+//     {
+//         OnUnFreeze();
+//         return new ActiveState(this.OnUnFreeze);
+//     }
+
+//     public IFreezable Freeze() => this;
+
+
+//     public IFreezable Withdraw()
+//     {
+//         OnUnFreeze();
+//         return new ActiveState(this.OnUnFreeze);
+//     }
+// }

@@ -1,0 +1,30 @@
+using System;
+
+abstract class AccountState: IAccountState
+{
+    protected Action OnUnFrozen;
+    public AccountState(Action onUnfrozen)
+    {
+        this.OnUnFrozen = onUnfrozen;
+    }
+    public virtual IAccountState Close() => this;
+    public virtual IAccountState Deposit(Action acc) => this;
+    public virtual IAccountState Withdraw(Action acc) => this;
+    public virtual IAccountState HolderVerified() => this;
+
+    public virtual IAccountState Freeze() => this;
+}
+
+class NotVerifiedState : AccountState
+{
+    public NotVerifiedState(Action onUnfrozen) : base(onUnfrozen) {}
+
+    public override IAccountState Close() => new ClosedState();
+
+    public override IAccountState Deposit(Action addToBalance)
+    {
+        addToBalance();
+        return this;
+    }
+    public override IAccountState HolderVerified() => new ActiveState(this.OnUnFrozen);
+}

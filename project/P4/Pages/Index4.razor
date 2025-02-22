@@ -1,0 +1,82 @@
+@page "/index4"
+@using System.Drawing 
+@inject IJSRuntime JsRuntime;
+
+<div id="canvasContainer" style="position: fixed; opacity: 1; background-color: black; width: 100%; height: 100%">
+    <BECanvas Width="1000" Height="1000" @ref="_canvasReference"></BECanvas>
+</div>
+
+@code
+{
+    public float secondsPassed = 0;
+    public float timePassed = 0;
+    public float oldTimeStamp = 0;
+    public float movingSpeed = 50;
+    private double rectX =0;
+    private double rectY =0;
+    private Canvas2DContext _context;//khod lakposht hast ke dar khat 11 ba tabe khat
+    protected BECanvasComponent _canvasReference;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+    [JSInvokable]//vase ine ke java inga bezanim
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)//in bad az bala omadan safhe va egra html ha ast
+    {
+        if (firstRender)
+        {
+            
+            await JsRuntime.InvokeAsync<object>("initGame", DotNetObjectReference.Create(this));//tabe haye javascript mesl init game ra dar index.html tarif mikonim
+            _context = await _canvasReference.CreateCanvas2DAsync();
+            await _context.SetTextBaselineAsync(TextBaseline.Top);
+        }
+    }
+    [JSInvokable]
+    public async ValueTask GameLoop(float timeStamp, int screenWidth, int screenHeight)
+    {
+        // Calculate how much time has passed
+        secondsPassed = (timeStamp - oldTimeStamp) / 1000;
+        oldTimeStamp = timeStamp;
+        await Update(secondsPassed,screenWidth, screenHeight);
+        await Render(screenWidth, screenHeight);
+    }
+
+    private async ValueTask Update(float secondsPassed ,int screenWidth, int screenHeight)
+    {
+        timePassed += secondsPassed;
+        rectX = easeInOutQuint(timePassed, 50, 500, 1.5);
+        rectY = easeLinear(timePassed, 50, 250, 1.5);
+        if(rectX>screenWidth){
+            await _context.ClearRectAsync(0, 0,screenWidth,screenHeight);
+            rectX=0;
+            rectY=0;
+            timePassed=0;
+            secondsPassed=0;
+        }
+        if(rectY>screenHeight){
+            await _context.ClearRectAsync(0, 0, screenWidth,screenHeight);
+            rectX=0;
+            rectY=0;
+            timePassed=0;
+            secondsPassed=0;
+        }
+    }
+
+    double easeInOutQuint (double t,double b,double c,double d) 
+    {
+        if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+        return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+    }
+    double easeLinear (double t,double b,double c,double d)
+    {
+        return c * t / d + b;
+    }
+
+    private async ValueTask Render(int width, int height)
+    {
+        await _context.ClearRectAsync(0, 0, width, height);
+        await _context.SetFillStyleAsync("red");
+        await _context.FillRectAsync(rectX, rectY, 150, 100);
+    }
+}

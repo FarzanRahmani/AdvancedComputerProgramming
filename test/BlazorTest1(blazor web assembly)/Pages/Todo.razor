@@ -1,0 +1,52 @@
+@page "/todo"
+
+<h2>
+    Farzan's ToDo
+</h2>
+
+<ol>
+    @foreach (TodoItem item in Todos)
+    {
+        <li> @item.Title </li>
+    }
+</ol>
+
+<h3>
+    Naro Somaye
+</h3>
+
+@code {
+    public class TodoItem
+    {
+        public string Title { get; set;}
+        public bool IsDone { get; set;}
+
+        // OR
+        //
+        //public string Title;
+        //public bool IsDone;
+        //public TodoItem( string title , bool isDone)
+        //{
+        //    this.Title = title;
+        //    this.IsDone = isDone;
+        //}
+    }
+    private TodoItem[] Todos = new TodoItem[] {
+        new TodoItem{Title = "fery1" , IsDone = true},
+        new TodoItem{Title = "fery2" , IsDone = true},
+        new TodoItem{Title = "fery3" , IsDone = true},
+        new TodoItem{Title = "fery4" , IsDone = true},
+        new TodoItem{Title = "fery5" , IsDone = true},
+        new TodoItem{Title = "fery6" , IsDone = true},
+        new TodoItem{Title = "fery7" , IsDone = true},
+        new TodoItem{Title = "fery8" , IsDone = true},
+        new TodoItem{Title = "fery9" , IsDone = true},
+    };
+}
+
+ @* Blazorapp\data\ToDoItem.cs
+ public class TodoItem
+     {
+         public string Title { get; set;}
+         public bool IsDone { get; set;}
+     } *@

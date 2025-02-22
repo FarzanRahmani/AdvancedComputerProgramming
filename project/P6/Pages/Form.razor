@@ -1,0 +1,49 @@
+@page "/form"
+
+<EditForm Model="@currency" OnValidSubmit="@AddData" OnInvalidSubmit="@Erormassage">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <p>
+        <lable>Name</lable>
+        <InputText @bind-Value="currency.Name" />
+    </p>
+
+    <p>
+        <lable>Rate : </lable>
+        <InputNumber @bind-Value="currency.Price"></InputNumber>
+    </p>
+    
+    <button type="submit">Submit</button>
+    
+</EditForm>
+
+
+<p>
+    @foreach (var item in Currency_list)
+    {
+        <p>
+            @item.Name : @item.Price  (@item.Date)
+        </p>
+    }
+</p>
+
+<TableComponent currency_array="@Currency_list.ToArray()"></TableComponent>
+<ColumnChart currency_array ="@Currency_list.ToArray()"></ColumnChart>
+<CheckBoxComponent></CheckBoxComponent>
+@code
+{
+    private Currency currency = new Currency();
+    private List<Currency> Currency_list = new List<Currency>();
+    private string errorM;
+    private void AddData()
+    {
+        currency.Date = DateTime.Now;
+        Currency_list.Add(currency);
+        currency = new Currency();
+    }
+
+    private void Erormassage()
+    {
+        errorM = "there is a problem";
+    }
+}

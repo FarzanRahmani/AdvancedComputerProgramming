@@ -1,0 +1,24 @@
+@page "/counter"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+@* @ baes mishe moteghayer C# bashe be jaye html  *@
+@* @ be jaye code mamooli html tabdil be moteghayere C# mikone *@
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0; 
+    @* Add a public property for IncrementAmount with a [Parameter] attribute. *@
+
+    [Parameter]
+    public int IncrementAmount { get; set; } = 1;
+
+
+    private void IncrementCount()
+    {
+        @* currentCount++; *@
+        currentCount += IncrementAmount;
+    }
+}

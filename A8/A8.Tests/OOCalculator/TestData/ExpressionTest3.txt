@@ -1,0 +1,5 @@
+Multiply
+4
+Square
+Negate
+5
