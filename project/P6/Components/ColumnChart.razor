@@ -1,0 +1,19 @@
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 p-4">
+        <RadzenChart>
+            <RadzenColumnSeries Data="@currency_array" CategoryProperty="Name" Title="2020" LineType="LineType.Dashed" ValueProperty="Price" />
+            <RadzenColumnOptions Radius="5" />
+            <RadzenValueAxis >
+                <RadzenGridLines Visible="true" />
+                <RadzenAxisTitle Text="Revenue in USD" />
+            </RadzenValueAxis>
+        </RadzenChart>
+    </div>
+</div>
+
+@code
+{
+    [Parameter] // ****
+    public Currency[] currency_array {get;set;}
+}

@@ -1,0 +1,20 @@
+"Host=ec2-35-170-85-206.compute-1.amazonaws.com;Port=5432;Database=d92h8f5bc1uif7;Username=idxtyrovrsrhsd;Password=ee14b9eef09987dd7c50b19c5e4ab57776a0a9fcb71956aec09d68ca1ddb2a3b;sslmode=Prefer;Trust Server Certficate=true;"
+
+
+"Host=?;Port=5432;Database=?;Username=?;Password=?;sslmode=Prefer;Trust Server Certficate=true;"
+
+https://docs.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
+
+Heroku --> dataclips        comment : --
+SELECT * --> SELECT "Id" ستون ها
+From "Clothes"; جدول
+ستون ها وجداول باید داخل " باشند
+WHERE "price" >= 1000 شرط گذاشتن
+LIMIT 5 پنج تا رو نشون بده
+SELECT MIN("Id")
+WHERE "Id" IN (
+    SELECT MIN("Id")
+    FROM "Clothes"
+)
+
+http://localhost:5000/swagger/index.html

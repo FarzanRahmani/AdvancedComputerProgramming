@@ -1,0 +1,248 @@
+@page "/products"
+<head>
+    <center>
+        <h1>
+            <big>
+                Farzan's online shop
+            </big>
+        </h1>
+    </center>
+</head>
+
+@* <nav class="navbar navbar-inverse">
+    <ul class="nav navbar-nav">
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+    </ul>
+    <p class="navbar-text">Total price is : @sum_value</p>
+</nav> *@
+
+
+<body>
+    @* <style>
+    body {
+        background-image: url('bg4.jpg');
+        background-color: ghostwhite;
+        background-repeat: no-repeat;
+        background-position: bottom;
+    }
+    </style> *@
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Add</th>
+                    <th scope="col">Remove</th>
+                    <th scope="col">Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td class="w-25">
+                        <img src=@MenJeans.photo class="img-fluid img-thumbnail" alt="MenJeans">
+                    </td>
+                    <td>@MenJeans.name</td>
+                    <td>@MenJeans.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_MJ())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_MJ())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@MJ</td>
+                    </tr>
+
+                    <tr>
+                    <th scope="row">2</th>
+                    <td class="w-25">
+                        <img src=@WomenJeans.photo class="img-fluid img-thumbnail" alt="WomenJeans">
+                    </td>
+                    <td>@WomenJeans.name</td>
+                    <td>@WomenJeans.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_WJ())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_WJ())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@WJ</td>
+                    </tr>
+
+                    <tr>
+                    <th scope="row">3</th>
+                    <td class="w-25">
+                        <img src=@MenJacket.photo class="img-fluid img-thumbnail" alt="MenJacket">
+                    </td>
+                    <td>@MenJacket.name</td>
+                    <td>@MenJacket.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_MJA())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_MJA())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@MJA</td>
+                    </tr>
+
+                    <tr>
+                    <th scope="row">4</th>
+                    <td class="w-25">
+                        <img src=@WomenJacket.photo class="img-fluid img-thumbnail" alt="WomenJacket">
+                    </td>
+                    <td>@WomenJacket.name</td>
+                    <td>@WomenJacket.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_WJA())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_WJA())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@WJA</td>
+                    </tr>
+
+                    <tr>
+                    <th scope="row">5</th>
+                    <td class="w-25">
+                        <img src=@MenTshirt.photo class="img-fluid img-thumbnail" alt="MenTshirt">
+                    </td>
+                    <td>@MenTshirt.name</td>
+                    <td>@MenTshirt.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_MT())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_MT())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@MT</td>
+                    </tr>
+
+                    <tr>
+                    <th scope="row">6</th>
+                    <td class="w-25">
+                        <img src=@WomenTshirt.photo class="img-fluid img-thumbnail" alt="WomenTshirt">
+                    </td>
+                    <td>@WomenTshirt.name</td>
+                    <td>@WomenTshirt.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_WT())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_WT())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@WT</td>
+                    </tr>
+
+                    <tr>
+                    <th scope="row">7</th>
+                    <td class="w-25">
+                        <img src=@Menshoes.photo class="img-fluid img-thumbnail" alt="Menshoes">
+                    </td>
+                    <td>@Menshoes.name</td>
+                    <td>@Menshoes.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_MS())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_MS())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@MS</td>
+                    </tr>
+
+                    <tr>
+                    <th scope="row">8</th>
+                    <td class="w-25">
+                        <img src=@Womenshoes.photo class="img-fluid img-thumbnail" alt="Womenshoes">
+                    </td>
+                    <td>@Womenshoes.name</td>
+                    <td>@Womenshoes.price</td>
+                    <td> <a href="products" class="btn btn-success btn-lg active" @onclick="(()=>add_to_WS())" role="button" aria-pressed="true" >+</a> </td>
+                    <td> <a href="products" class="btn btn-danger btn-lg active" @onclick="(()=>remove_from_WS())" role="button" aria-pressed="true" >-</a> </td>
+                    <td>@WS</td>
+                    </tr>
+
+                </tbody>
+                </table>   
+            </div>
+        </div>
+    </div>
+    <center> <a href="cart" class="btn btn-dark btn-lg active" @onclick="(()=>AddToFCart())" role="button" aria-pressed="true" >continue and complete your shop</a> </center>
+</body>
+
+
+
+
+    @* <pre></pre> *@
+
+<h3>
+    Total price is : @sum_value
+</h3>
+
+
+@code {
+
+    void AddToFCart()
+    {
+        Fcart.MJ = MJ;Fcart.WJ = WJ;Fcart.MT = MT;Fcart.WT = WT;
+        Fcart.MS = MS;Fcart.WS = WS;Fcart.MJA = MJA;Fcart.WJA = WJA;Fcart.sum_value = sum_value;
+    }
+
+    void AddToCart(product p)
+    {
+        cart.products_list.Add(p);
+        cart.sum_value += p.price;
+    }
+
+    void add_to_MJ(){MJ++;revalue();}void add_to_WJ(){WJ++;revalue();}void add_to_MT(){ MT++; revalue();}void add_to_WT(){ WT++ ;revalue();}
+    void add_to_MS(){MS++;revalue();}void add_to_WS(){WS++;revalue();}void add_to_MJA(){MJA++;revalue();}void add_to_WJA(){WJA++;revalue();}
+    @* void remove_from_MJ(){if(MJ >= 1) MJ--;} *@
+
+    void remove_from_MJ(){if(MJ>0)MJ--;revalue();}void remove_from_WJ(){if(WJ>0)WJ--;revalue();}void remove_from_MT(){if(MT>0)MT--;revalue();}  void remove_from_WT(){  if(WT>0)WT--;  revalue();}
+    void remove_from_MS(){if(MS>0)MS--;revalue();}void remove_from_WS(){if(WS>0)WS--;revalue();}void remove_from_MJA(){if(MJA>0)MJA--;revalue();}void remove_from_WJA(){if(WJA>0)WJA--;revalue();}
+
+    void revalue() 
+    {
+        sum_value = MJ*MenJeans.price + WJ*WomenJeans.price + MT*MenTshirt.price + WT*WomenTshirt.price
+        + MS*Menshoes.price + WS*Womenshoes.price + MJA*MenJacket.price + WJA*WomenJacket.price;  
+    }
+    
+        #region def
+    static product MenJeans = new product()
+    {   name = "MenJeans",
+        price = 400,
+        photo = "men-jeans.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+
+    static product WomenJeans = new product()
+    {   name = "WomenJeans",
+        price = 320,
+        photo = "women-jeans.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+
+    static product MenTshirt = new product()
+    {   name = "MenTshirt",
+        price = 200,
+        photo = "men-Tshirt.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+
+    static product WomenTshirt = new product()
+    {   name = "WomenTshirt",
+        price = 150,
+        photo = "women-Tshirt.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    static product Menshoes = new product()
+    {   name = "Menshoes",
+        price = 450,
+        photo = "men-shoes.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    static product Womenshoes = new product()
+    {   name = "Womenshoes",
+        price = 380,
+        photo = "women-shoes.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    static product MenJacket = new product()
+    {   name = "MenJacket",
+        price = 2000,
+        photo = "men-jacket.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    
+    static product WomenJacket = new product()
+    {   name = "WomenJacket",
+        price = 1600,
+        photo = "women-jacket.jpg",
+        // @* isAvailable = "Available" *@ 
+    };
+    static int MJ = 0;static int WJ = 0;static int MT = 0;static int WT = 0;
+    static int MS = 0;static int WS = 0;static int MJA = 0;static int WJA = 0;static int sum_value;
+
+    #endregion
+
+}

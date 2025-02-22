@@ -1,0 +1,54 @@
+﻿@page "/"
+@using System.Drawing 
+@using Blazor.Extensions 
+@using Blazor.Extensions.Canvas.Canvas2D 
+@inject IJSRuntime JsRuntime;
+<div id="canvasContainer" style="position: fixed; opacity: 1; background-color: black; width: 100%; height: 100%">
+    <BECanvas Width="1000" Height="1000" @ref="_canvasReference"></BECanvas>
+    <img @ref="_spritesheet" hidden src= "1.png" />
+</div>
+@code
+{
+    private BECanvasComponent _canvasReference ;
+    private Canvas2DContext _context ;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeAsync<object>("initGame", DotNetObjectReference.Create(this));
+            this._context = await _canvasReference.CreateCanvas2DAsync();
+            await _context.SetTextBaselineAsync(TextBaseline.Top);
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+        await base.OnInitializedAsync();
+    }
+    ElementReference _spritesheet;
+
+    [JSInvokable]
+    public async ValueTask GameLoop(float timeStamp, int width, int height)
+    {
+        await _context.ClearRectAsync(0, 0, width, height);
+        
+        await _context.DrawImageAsync(_spritesheet, 0, 0, width/2 , height/2 );
+    }
+}
+    @* protected override async Task OnInitializedAsync()
+    {
+        await JSRuntime.InvokeAsync<Object>("initGame" , DotNetObjectReference.Create(this)) ;
+    }
+    [JSInvokable]
+    public async ValueTask GameLoop(float timeStamp)
+    {
+        await _context.SetFillStyleAsync("red") ;
+        await _context.FillRectAsync(100,100,50,30) ;
+
+    }
+    public override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(!firstRender) return;
+        _context = await _canvasReference.CreateCanvas2DAsync();
+        await _context.SetTextBaselineAsync(TextBaseline.Top) ;
+    } *@

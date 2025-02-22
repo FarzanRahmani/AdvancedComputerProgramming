@@ -1,0 +1,21 @@
+<table>
+    <tr>
+        <th>name </th>
+        <th>price </th>
+        <th>date </th>
+    </tr>
+    @foreach (var item in currency_array)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Price</td>
+            <td>@item.Date</td>
+        </tr>
+    }
+</table>
+
+@code
+{   
+    [Parameter] // ****
+    public Currency[] currency_array {get;set;}
+}

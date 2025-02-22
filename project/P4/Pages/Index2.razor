@@ -1,0 +1,51 @@
+@page "/index2"
+@using System.Drawing 
+@using Blazor.Extensions 
+@using Blazor.Extensions.Canvas.Canvas2D 
+@inject IJSRuntime JsRuntime;
+
+<div id="canvasContainer" style="position: fixed; opacity: 1; background-color: black; width: 100%; height: 100%">
+    <BECanvas Width="1000" Height="1000" @ref="_canvasReference"></BECanvas>
+</div>
+
+@code
+{
+    private BECanvasComponent _canvasReference ;
+    private Canvas2DContext _context ;
+
+    [JSInvokable]//vase ine ke java inga bezanim
+    public async ValueTask GameLoop(float timeStamp, int screenWidth, int screenHeight)//ghabl html
+    {
+        await _context.SetTextBaselineAsync(TextBaseline.Top);//?
+        await _context.SetFillStyleAsync("blue");//rang shekle
+        await _context.FillRectAsync(100,100,50,100);//abad shecl ka morabae
+        await _context.BeginPathAsync();
+        await _context.SetFillStyleAsync("yellow");//rang shekle
+        await _context.ArcAsync(300,300,50,0,2*Math.PI);//2 argoman akhar baraye in ast ke begoim dayereaz koga ta koga yani che zaviye e az dayere keshide shavad
+        await _context.FillAsync();//ba in dastor dakhel yek shape ra rang mkonim ba rang khat 24 va in faghat mige dakhel shekl ro kolaa ba on rang neshan bede
+        await _context.BeginPathAsync();//masir ra shoromikonad
+        await _context.SetStrokeStyleAsync("red");
+        await _context.MoveToAsync(400,400);//noghte shoro masir
+        await _context.LineToAsync(500,500);//ta in noghte rasm mikonad
+        await _context.StrokeAsync();//darvaghe mige faghat dor shekl ya yek khat ro rang kon
+        await _context.BeginPathAsync();
+        await _context.SetFillStyleAsync("rgb(200,50,150)");
+        await _context.MoveToAsync(600,200);
+        await _context.LineToAsync(650,250);        
+        await _context.LineToAsync(550,200);//2 ta khat ro ma mikeshim va 3 vomin khat hengam estefade az fill ebteda be ente ha motasel mishavad     
+        await _context.FillAsync(); 
+        await _context.BeginPathAsync();
+        await _context.ArcAsync(200,100,50,0,2*Math.PI);//
+        await _context.SetStrokeStyleAsync("#ff8080");//rang strok ast
+        await _context.SetLineWidthAsync(10);//zekhamat khat strok
+        await _context.StrokeAsync(); 
+    } 
+protected override async Task OnAfterRenderAsync(bool firstRender)//in bad az bala omadan safhe va egra html ha ast
+    {
+        if (firstRender)
+        {
+            this._context= await _canvasReference.CreateCanvas2DAsync();//tolid context ke halat tertel ro dare
+            await JsRuntime.InvokeAsync<object>("initGame", DotNetObjectReference.Create(this));//tabe haye javascript mesl init game ra dar index.html tarif mikonim
+        }
+    }
+}

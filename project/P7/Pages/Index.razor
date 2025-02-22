@@ -1,0 +1,121 @@
+﻿@using System.Net.Http
+
+
+@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<button @onclick="GetItem">
+    Get item
+</button>
+<button @onclick="GetAlltask">
+    Get all items
+</button>
+<button @onclick="Delete_item">
+    delete item
+</button>
+<p>@delete_message</p>
+<p>@t1</p>
+@if (all_tasks != null)
+{
+    @foreach(var item in all_tasks)
+    {
+        <ul>
+            <li>@item.userId</li>
+            <li>@item.title</li>
+            <li>@item.body</li>
+        </ul>
+    }
+}
+<div class="row">
+    <div class="col-8"></div>
+    <div class="col-4">
+        <label style="display:block" for="userid">UserID</label>
+        <input @bind="Userid" id="userid" type="text">    
+        <label style="display:block;margin-top:5px" for="title">title</label>
+        <input @bind="title" id="title" type="text">    
+        <label style="display:block;margin-top:5px" for="body">body</label>
+        <input style="display:block" @bind="body" id="body" type="text">   
+        <button @onclick="PostItem"  style="display:block;margin-bottom:15px;margin-top:10px" class="btn btn-primary">post a task</button>
+        <button @onclick="UpdateItem"  style="display:block;margin-bottom:15px;margin-top:10px" class="btn btn-primary">update a task</button>
+        <p>@post_message</p>
+        <p>@update_message</p>
+        @* <button @onclick="PostTask" style="display:block;margin-bottom:15px;margin-top:10px" class="btn btn-primary">Post my task</button> *@
+        @* <button @onclick="UpdateTask" style="display:block;margin-bottom:15px;margin-top:10px" class="btn btn-primary">Update my task</button> *@
+
+    </div>
+</div>
+
+@code 
+{
+    class ToDoITem
+    {
+        public int userId { get; set; }
+        public int id { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.userId} {this.body} {this.title}";
+        }
+    }
+    int Userid;
+    string title ; 
+    string body ; 
+    ToDoITem t1 ; 
+    ToDoITem[] all_tasks ;
+    string post_message ;
+    System.Net.HttpStatusCode update_message ; 
+    string delete_message ; 
+    private async void GetItem()
+    {
+        var client = new HttpClient();
+        t1 =  await client.GetFromJsonAsync<ToDoITem>("https://jsonplaceholder.typicode.com/posts/3");
+        StateHasChanged();
+    }
+    private async void GetAlltask()
+    {
+        var client = new HttpClient();
+        all_tasks = await client.GetFromJsonAsync<ToDoITem[]>("https://jsonplaceholder.typicode.com/posts");
+        StateHasChanged();
+    }
+    private async void PostItem() // Create
+    {
+        ToDoITem make_item = new ToDoITem
+        {
+            userId = Userid ,
+            title = title ,
+            body = body 
+        };
+        var client = new HttpClient();
+        var answer = await client.PostAsJsonAsync("https://jsonplaceholder.typicode.com/posts" , make_item);
+
+        post_message = answer.StatusCode.ToString() ;
+        StateHasChanged();
+    }
+    private async void UpdateItem()
+    {
+        int item_id = 7 ;
+        ToDoITem update_item = new ToDoITem
+        {
+            userId = Userid ,
+            title = title ,
+            body = body 
+        };
+        var client = new HttpClient();
+        var answer = await client.PutAsJsonAsync($"https://jsonplaceholder.typicode.com/posts/{item_id}" , update_item);
+        update_message = answer.StatusCode;
+        StateHasChanged();
+    }
+    private async void Delete_item()
+    {
+        int item_id = 12;
+        var client = new HttpClient();
+        var answer = await client.DeleteAsync($"https://jsonplaceholder.typicode.com/posts/{item_id}");
+        delete_message = answer.StatusCode.ToString() ;
+        StateHasChanged();
+    }
+}
