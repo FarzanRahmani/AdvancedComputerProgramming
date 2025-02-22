@@ -1,0 +1,50 @@
+git status
+git commit -m "enghlab"
+dir
+git status
+git checkout master
+dir
+git merge fb_a1
+dir
+git reset HEAD~1
+git checkout .
+git status
+git branch fb_a2
+git checkout fb_a2
+dir
+notepad b.txt
+git add .
+git status
+git commit -m  "taghir mohem"
+git checkout master
+notepad b.txt
+git merge fb_a2
+notepad b.txt
+git add b.txt
+git commit -m "taghir mohem az master"
+git checkout fb_a2
+notepad b.txt
+git add .
+git commit -m "taghir mohem az fb_a2"
+git checkout master
+git merge fb_a2
+notepad b.txt
+git add .
+git commit -m "master"
+git checkout fb_a2
+notepad b.txt
+git add .
+git commit -m "fb_a2"
+git checkout master
+notepad b.txt
+git merge fb_a2
+notepad b.txt
+git add .
+git commit -m "merge conflict fix"
+dir .git
+dir
+cd ..
+rar a l1.zip aptmp
+dir
+doskey /history
+doskey /history >> cmds.txt
