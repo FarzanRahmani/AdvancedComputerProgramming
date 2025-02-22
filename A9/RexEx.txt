@@ -1,0 +1,95 @@
+\w
+Match any alphanumeric character
+
+\s
+Match any whitespace character
+
+\d
+Match any digit
+
+\b
+Match the beginning or end of a word
+
+^
+Match the beginning of the string
+
+$
+Match the end of the string
+^\d{3}-\d{4}$
+
+y setting the "Multiline" option in .NET, "^" and "$" change their meaning to match the beginning and end of a single line of text, rather than the entire text string.
+Use the backslash to remove the special meaning. Thus, "\^", "\.", and "\\", match the literal characters "^", ".", and "\", respectively.
+
+Repetitions:
+*
+Repeat any number of times
+
++
+Repeat one or more times
+
+?
+Repeat zero or one time
+
+{n}
+Repeat n times
+
+{n,m}
+Repeat at least n, but no more than m times
+
+{n,}
+Repeat at least n times
+
+It is simple to find alphanumerics, digits, and whitespace, but what if we want to find anything from some other set of characters? This is easily done by listing the desired 
+characters within square brackets. Thus, "[aeiou]" matches any vowel and "[.?!]" matches the punctuation at the end of a sentence. In this example, notice that the "." And "?" 
+lose their special meanings within square brackets and are interpreted literally. We can also specify a range of characters, so "[a-z0-9]" means, "match any lowercase letter of the
+alphabet, or any digit".
+
+\(?\d{3}[) ]\s?\d{3}[- ]\d{4} A ten digit phone number
+
+This expression will find phone numbers in several formats, like "(800) 325-3535" or "650 555 1212". The "\(?" searches for zero or one left parentheses, "[) ]" searches for a 
+right parenthesis or a space. The "\s?" searches for zero or one whitespace characters. Unfortunately, it will also find cases like "650) 555-1212" in which the parenthesis is 
+not balanced. Below, you'll see how to use alternatives to eliminate this problem.
+
+Negation:
+
+\W
+Match any character that is NOT alphanumeric
+
+\S
+Match any character that is NOT whitespace
+
+\D
+Match any character that is NOT a digit
+
+\B
+Match a position that is NOT the beginning or end of a word
+
+[^x]
+Match any character that is NOT x
+
+[^aeiou]
+Match any character that is NOT one of the characters aeiou
+
+Alternatives
+To select between several alternatives, allowing a match if either one is satisfied, use the pipe "|" symbol to separate the alternatives. For example, Zip Codes come in two flavors,
+ one with 5 digits, the other with 9 digits and a hyphen. We can find either with this expression:
+
+\b\d{5}-\d{4}\b|\b\d{5}\b Five and nine digit Zip Codes
+
+When using alternatives, the order is important since the matching algorithm will attempt to match the leftmost alternative first. If the order is reversed in this example, the 
+expression will only find the 5 digit Zip Codes and fail to find the 9 digit ones. We can use alternatives to improve the expression for ten digit phone numbers, allowing the area 
+code to appear either delimited by whitespace or parenthesis:
+
+(\(\d{3}\)|\d{3})\s?\d{3}[- ]\d{4} Ten digit phone numbers, a better way
+
+Grouping:
+Parentheses may be used to delimit a subexpression to allow repetition or other special treatment. For example:
+
+(\d{1,3}\.){3}\d{1,3} A simple IP address finder
+
+The first part of the expression searches for a one to three digit number followed by a literal period "\.". This is enclosed in parentheses and repeated three times using the
+"{3}" quantifier, followed by the same expression without the trailing period.
+Unfortunately, this example allows IP addresses with arbitrary one, two, or three digit numbers separated by periods even though a valid IP address cannot have numbers larger
+than 255.
+
+((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?) IP finder

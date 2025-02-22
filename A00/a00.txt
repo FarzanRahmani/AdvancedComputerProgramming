@@ -1,0 +1,25 @@
+mkdir A00
+cd A00
+mkdir A00
+mkdir A00.Test
+cd A00
+dotnet new console (we are making new console application)
+dotnet run
+cd A00.Test
+dotnet new mstest (we are making new test)
+dir
+dotnet add reference ..\A00 (we are referencing A00.Test to A00)
+cd A00
+dotnet new sln
+dotnet sln add A00\A00.csproj (we are adding project to the solution)
+dotnet sln add A00.Test (we are adding project to the solution)
+cd A00
+code .
+screen shot code
+git branch fb_A00
+git checkout fb_A00
+git add .
+git commit
+git push 
+
+dotnet sln

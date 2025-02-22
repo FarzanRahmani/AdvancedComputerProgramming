@@ -1,0 +1,100 @@
+cd 99521415
+dir
+cd AP99002
+dir
+git pull
+stdlook 415
+dir
+git remote -v
+dir
+mkdir A0
+cd A0
+dir
+mkdir A0
+mkdir A0.Test
+cd A0
+dir
+dotnet new console
+dir
+dotnet run
+notepad Program.cs
+cd ..
+dir
+cd A0.Test
+dir
+dotnet new mstest
+dotnet test
+dir
+notepad UnitTest1.cs
+cd ..
+dir
+cd A0.Test
+dotnet add reference ..\A0
+cd ..
+dir
+dotnet new sln
+dir
+dotnet add A0\A0.csproj
+dotnet sln add A0\A0.csproj
+dotnet sln add A0.Test
+dir
+cd A0
+dir
+type A0.csproj
+cd ..
+cd A0.Test
+dir
+cd ..
+dir
+code .
+doskey /history >> \git\AP99002\l2.cmd.txt
+dir
+cd A0
+dir
+type A0.csproj
+cd ..
+cd A0.Test
+dir
+cd ..
+dir
+code .
+doskey /history >> \git\AP99002\l2.cmd.txt
+dir
+cd A0
+dir
+dotnet run
+cd ..
+cd A0.Test
+dotnet test
+cd ..
+dir
+git status
+cd ..
+git status
+git branch fb_A0
+git checkout fb_A0
+git status
+git add .
+git status
+git commit -m "A0"
+git push origin
+git push --set-upstream origin fb_A0
+dir
+cd A0
+dir
+dotnet build
+git branch --list -a
+dir
+dotnet build
+dotnet test
+dir
+cd ..
+git checkout main
+dir
+cd A0
+dir
+dir /s /b
+dir
+cd A0
+dir
+doskey /history >> \git\AP99002\l2.cmd.txt
