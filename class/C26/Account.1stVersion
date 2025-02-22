@@ -1,0 +1,60 @@
+using System;
+class Account
+{
+    public double Balance {get; private set;}
+    public bool isVerified {get; set;}
+    public bool isClosed {get; set;}
+    public bool isForzen {get; set;}
+
+    public Action OnUnfreeze;
+
+    // 5: isClosed=true, isVerified=*, Balance=10, Deposit=5, ==> Balance = 10
+    // 6: isClosed=false, isVerified=*, Balance=10, Deposit=5, ==> Balance = 15
+    // 7: isFrozen=true, OnUnfreeze() is called
+    // 8: isFrozen=false, OnUnfreeze() is not called
+    public void Deposit(double amount)
+    {
+        if (this.isClosed)
+            return;
+
+        if (this.isForzen)
+            this.OnUnfreeze();
+
+        this.Balance += amount;
+    }
+
+    // 1: Verified = false, isClosed=true, Balance=10 Withdraw=5 ==> Balance == 10
+    // 2: Verified = false, isClosed=false, Balance=10 Withdraw=5 ==> Balance == 10
+    // 3: Verified = true, isClosed=false, Balance=10 Withdraw=5 ==> Balance == 5
+    // 4: Verified = true, isClosed=true, Balance=10 Withdraw=5 ==> Balance == 10
+    // 9: isFrozen=true, OnUnfreeze() is called
+    // 10: isFrozen=false, OnUnfreeze() is not called
+    public void Withdraw(double amount)
+    {
+        if (this.isClosed)
+            return;
+
+        if (!this.isVerified)
+            return;
+        
+        if (this.isForzen)
+            this.OnUnfreeze();
+
+        this.Balance -= amount;
+    }
+
+    public void Close()
+    {
+        this.isClosed = true;
+    }
+
+    public void HolderVerified()
+    {
+        this.isVerified = true;
+    }
+
+    public void Freeze()
+    {
+        this.isForzen = true;
+    }
+}
