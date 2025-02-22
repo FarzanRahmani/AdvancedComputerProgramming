@@ -1,0 +1,3 @@
+dotnet new blazorwasm -o BlazorApp1
+cd BlazorApp1
+dotnet run
